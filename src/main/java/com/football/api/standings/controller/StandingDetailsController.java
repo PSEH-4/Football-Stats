@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import javax.print.attribute.HashAttributeSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,12 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.football.api.standings.config.GetConfiguration;
 import com.football.api.standings.controller.model.Competitions;
 import com.football.api.standings.controller.model.Countries;
 import com.football.api.standings.controller.model.StandingsResponse;
 
 @RestController
 public class StandingDetailsController {
+	
+	@Autowired
+	GetConfiguration getConfiguration;
 	
 	/*
 	 * String countryName="England"; String leagueName="Premier League"; String
@@ -78,7 +83,8 @@ public class StandingDetailsController {
 	    	headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
 			
-			String URL = "https://apiv2.apifootball.com/?action=get_countries&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			//String URL = "https://apiv2.apifootball.com/?action=get_countries&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			String URL = getConfiguration.getGetCountriesUrl();
 			
 			HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 			ResponseEntity<Countries[]> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, requestEntity, Countries[].class);
@@ -114,7 +120,9 @@ public class StandingDetailsController {
 	    	headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
 			
-			String url = "https://apiv2.apifootball.com/?action=get_leagues&country_id=&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			//String url = "https://apiv2.apifootball.com/?action=get_leagues&country_id=&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			
+			String url = getConfiguration.getGetleaguesurl();
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);
 
@@ -159,7 +167,9 @@ public class StandingDetailsController {
 	    	headers.setContentType(MediaType.APPLICATION_JSON);
 			RestTemplate restTemplate = new RestTemplate();
 			
-			String url = "https://apiv2.apifootball.com/?action=get_standings&league_id=0&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			//String url = "https://apiv2.apifootball.com/?action=get_standings&league_id=0&APIkey=9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978";
+			
+			String url = getConfiguration.getGetstandingsurl();
 			
 			UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);
 
