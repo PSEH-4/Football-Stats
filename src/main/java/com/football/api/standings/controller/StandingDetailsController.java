@@ -23,12 +23,13 @@ import com.football.api.standings.controller.model.StandingsResponse;
 @RestController
 public class StandingDetailsController {
 	
-	String countryName="England";
-	String leagueName="Premier League";
-	String teamName="Manchester City";
+	/*
+	 * String countryName="England"; String leagueName="Premier League"; String
+	 * teamName="Manchester City";
+	 */
 	
 	@GetMapping("/footstats/standings/{countryName}/{leagueName}/{teamName}")
-	public HashMap<String,String> getTeamStadings (@PathVariable("countryName") String countryName , @PathVariable("leagueName") String leagueName, @PathVariable("teamName") String teamName) {
+	public HashMap<String,String> getTeamStadings (@PathVariable(value = "countryName",required = true) String countryName , @PathVariable(value = "leagueName",required = true) String leagueName, @PathVariable(value = "teamName",required = true) String teamName) {
 		HashMap<String,String> result = new HashMap<String, String>();
 		
 		try {
